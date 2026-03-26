@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jersey Street — Handmade Earrings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #FAF6F0;
+      --warm-white: #FFFDF9;
+      --sand: #F0E8DC;
+      --tan: #D9CABC;
+      --brown: #8B6F5E;
+      --dark-brown: #3D2B1F;
+      --accent: #B5825A;
+      --accent-light: #E8C9A8;
+      --text: #2A1F16;
+      --text-muted: #7A6355;
+      --border: #E2D5C8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); }
+
+    /* Topbar */
+    .topbar { background: var(--dark-brown); color: var(--accent-light); font-size: 11px; text-align: center; padding: 9px 16px; letter-spacing: .08em; text-transform: uppercase; }
+
+    /* Nav */
+    .nav { background: var(--warm-white); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 68px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo img { height: 44px; object-fit: contain; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; letter-spacing: .02em; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .nav-icon-btn { background: none; border: none; font-size: 13px; color: var(--text-muted); cursor: pointer; font-family: inherit; }
+    .cart-btn { background: var(--dark-brown); color: var(--accent-light); border: none; border-radius: 6px; padding: 9px 18px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit; letter-spacing: .04em; }
+    .cart-btn:hover { background: var(--accent); }
+
+    /* Hero */
+    .hero { background: var(--warm-white); display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+    .hero-left { padding: 64px 48px 64px 40px; display: flex; flex-direction: column; justify-content: center; }
+    .hero-eyebrow { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent); }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 400; color: var(--dark-brown); line-height: 1.15; margin-bottom: 20px; }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-sub { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 36px; max-width: 400px; font-weight: 300; }
+    .hero-btns { display: flex; gap: 12px; }
+    .btn-primary { background: var(--dark-brown); color: var(--accent-light); border: none; border-radius: 6px; padding: 13px 28px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; letter-spacing: .04em; transition: background .2s; }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-secondary { background: none; color: var(--dark-brown); border: 1px solid var(--tan); border-radius: 6px; padding: 13px 28px; font-size: 13px; cursor: pointer; font-family: inherit; transition: border-color .2s; }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-right { background: var(--sand); display: grid; grid-template-columns: 1fr 1fr; gap: 3px; overflow: hidden; }
+    .hero-img-cell { overflow: hidden; }
+    .hero-img-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .hero-img-cell:hover img { transform: scale(1.05); }
+    .hero-tag { background: var(--dark-brown); color: var(--accent-light); font-size: 10px; padding: 5px 12px; border-radius: 20px; display: inline-block; letter-spacing: .07em; text-transform: uppercase; }
+
+    /* Trust bar */
+    .trust-bar { background: var(--sand); border-top: 1px solid var(--tan); border-bottom: 1px solid var(--tan); display: flex; justify-content: center; gap: 48px; padding: 14px 40px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); letter-spacing: .02em; }
+    .trust-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* Sections */
+    .section { padding: 64px 40px; }
+    .section.bg-warm { background: var(--warm-white); }
+    .section.bg-sand { background: var(--sand); }
+    .section-eyebrow { font-size: 10px; font-weight: 500; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .section-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; color: var(--dark-brown); line-height: 1.2; }
+    .view-all { font-size: 12px; color: var(--accent); text-decoration: none; letter-spacing: .06em; text-transform: uppercase; border-bottom: 1px solid var(--accent-light); padding-bottom: 2px; transition: border-color .2s; }
+    .view-all:hover { border-color: var(--accent); }
+
+    /* Product grid */
+    .products-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 20px; }
+    .products-grid.col-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .product-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color .2s, transform .2s; }
+    .product-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .p-img { height: 220px; overflow: hidden; background: var(--sand); position: relative; }
+    .p-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .4s; }
+    .product-card:hover .p-img img { transform: scale(1.06); }
+    .sold-overlay { position: absolute; inset: 0; background: rgba(58,42,30,.45); display: flex; align-items: center; justify-content: center; }
+    .sold-label { background: var(--dark-brown); color: var(--accent-light); font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 20px; letter-spacing: .08em; text-transform: uppercase; }
+    .p-badge { position: absolute; top: 10px; left: 10px; font-size: 9px; font-weight: 500; padding: 3px 9px; border-radius: 20px; letter-spacing: .06em; text-transform: uppercase; }
+    .p-badge.new { background: var(--dark-brown); color: var(--accent-light); }
+    .p-badge.fall { background: var(--accent); color: #fff; }
+    .p-info { padding: 14px 16px; }
+    .p-name { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--dark-brown); margin-bottom: 10px; line-height: 1.3; }
+    .p-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .p-price { font-size: 14px; font-weight: 500; color: var(--accent); }
+    .add-btn { background: var(--dark-brown); color: var(--accent-light); border: none; border-radius: 5px; padding: 6px 14px; font-size: 11px; font-weight: 500; cursor: pointer; font-family: inherit; letter-spacing: .04em; transition: background .2s; }
+    .add-btn:hover { background: var(--accent); }
+    .add-btn:disabled { background: var(--tan); color: var(--text-muted); cursor: default; }
+
+    /* Story section */
+    .story-section { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--dark-brown); }
+    .story-img { overflow: hidden; min-height: 400px; }
+    .story-img img { width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+    .story-text { padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; }
+    .story-eyebrow { font-size: 10px; font-weight: 500; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .story-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+    .story-title { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 400; color: var(--accent-light); line-height: 1.25; margin-bottom: 20px; }
+    .story-title em { font-style: italic; color: var(--accent); }
+    .story-body { font-size: 14px; color: var(--tan); line-height: 1.85; margin-bottom: 28px; font-weight: 300; }
+    .story-note { font-size: 12px; color: var(--accent); font-style: italic; border-left: 2px solid var(--accent); padding-left: 14px; line-height: 1.6; }
+
+    /* Collections section */
+    .collections-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+    .col-card { border-radius: 12px; overflow: hidden; position: relative; cursor: pointer; height: 260px; }
+    .col-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .col-card:hover img { transform: scale(1.05); }
+    .col-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(42,21,10,.82) 0%, rgba(42,21,10,.15) 60%, transparent 100%); }
+    .col-card-body { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 24px; }
+    .col-card-name { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--accent-light); margin-bottom: 4px; }
+    .col-card-sub { font-size: 12px; color: rgba(255,255,255,.6); letter-spacing: .04em; }
+
+    /* Testimonials */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+    .testi-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+    .testi-stars { color: var(--accent); font-size: 13px; margin-bottom: 12px; letter-spacing: 2px; }
+    .testi-body { font-size: 13px; color: var(--text-muted); line-height: 1.75; margin-bottom: 14px; font-style: italic; font-family: 'Playfair Display', serif; }
+    .testi-name { font-size: 12px; font-weight: 500; color: var(--dark-brown); text-transform: uppercase; letter-spacing: .06em; }
+
+    /* Email section */
+    .email-section { background: var(--dark-brown); padding: 56px 40px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .email-text h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: var(--accent-light); margin-bottom: 8px; }
+    .email-text p { font-size: 14px; color: var(--tan); font-weight: 300; }
+    .email-form { display: flex; gap: 10px; flex: 1; max-width: 420px; }
+    .email-input { flex: 1; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 6px; padding: 12px 18px; font-size: 13px; color: #fff; outline: none; font-family: inherit; }
+    .email-input::placeholder { color: rgba(255,255,255,.35); }
+    .email-input:focus { border-color: var(--accent); }
+    .email-submit { background: var(--accent); color: #fff; border: none; border-radius: 6px; padding: 12px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .email-submit:hover { background: #a06e47; }
+
+    /* Footer */
+    .footer { background: #1E1008; padding: 48px 40px 28px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 36px; }
+    .footer-logo img { height: 40px; margin-bottom: 14px; }
+    .footer-desc { font-size: 13px; color: #7A5E4E; line-height: 1.75; font-weight: 300; }
+    .f-col-title { font-size: 10px; font-weight: 500; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+    .f-col a { display: block; font-size: 13px; color: #7A5E4E; text-decoration: none; margin-bottom: 9px; transition: color .15s; }
+    .f-col a:hover { color: var(--accent-light); }
+    .footer-bottom { border-top: 1px solid #2E1A0E; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .f-copy { font-size: 12px; color: #5A3E2E; }
+    .f-handmade { font-size: 11px; font-style: italic; color: var(--accent); font-family: 'Playfair Display', serif; }
+
+    /* Divider */
+    .divider { height: 1px; background: var(--border); margin: 0 40px; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .story-section { grid-template-columns: 1fr; }
+      .story-img { min-height: 260px; }
+      .products-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .products-grid.col-3 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .collections-grid { grid-template-columns: 1fr; }
+      .email-section { flex-direction: column; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">Plastic hooks available — just leave a note at checkout</div>
+
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/Jersey_Street_STicker_Website_3.png?v=1756772619&width=200" alt="Jersey Street"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#all">All earrings</a></li>
+      <li><a href="#fall">Fall 2025</a></li>
+      <li><a href="#">Where to find us</a></li>
+      <li><a href="#">Testimonies</a></li>
+      <li><a href="#">About me</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn">Search</button>
+      <button class="cart-btn">Cart (0)</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Handmade with care</div>
+      <h1 class="hero-title">Every pair is<br><em>one of a kind.</em></h1>
+      <p class="hero-sub">Jersey Street earrings are handcrafted one at a time. No mass production. No duplicates. Just carefully made pieces that are as unique as the person wearing them.</p>
+      <div class="hero-btns">
+        <button class="btn-primary">Shop earrings</button>
+        <button class="btn-secondary">Fall 2025 collection</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-cell">
+        <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2682.jpg?v=1757253877&width=600" alt="Fall Flower Earrings"/>
+      </div>
+      <div class="hero-img-cell">
+        <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2537_bf7fb8ec-3ad0-429e-8b4b-de14afdcb169.jpg?v=1756827452&width=600" alt="Western Dangles"/>
+      </div>
+      <div class="hero-img-cell">
+        <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2535_ac810126-3825-48dd-959b-29ecc60dcd6a.jpg?v=1756827139&width=600" alt="Ornate Earrings"/>
+      </div>
+      <div class="hero-img-cell">
+        <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2568.jpg?v=1756908986&width=600" alt="White Mandala Earrings"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust bar -->
+  <div class="trust-bar">
+    <div class="trust-item"><div class="trust-dot"></div>One-of-a-kind pieces only</div>
+    <div class="trust-item"><div class="trust-dot"></div>Handcrafted by one maker</div>
+    <div class="trust-item"><div class="trust-dot"></div>Plastic hooks available on request</div>
+    <div class="trust-item"><div class="trust-dot"></div>All earrings $15</div>
+    <div class="trust-item"><div class="trust-dot"></div>New pieces added regularly</div>
+  </div>
+
+  <!-- Featured / Named products -->
+  <section class="section bg-warm">
+    <div class="section-eyebrow">Hand-picked</div>
+    <div class="section-head">
+      <h2 class="section-title">Featured earrings</h2>
+      <a class="view-all" href="#">View all</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2682.jpg?v=1757253877&width=600" alt="Fall Flower Earrings" loading="lazy"/>
+          <span class="p-badge fall">Fall 2025</span>
+          <div class="sold-overlay"><span class="sold-label">Sold out</span></div>
+        </div>
+        <div class="p-info">
+          <div class="p-name">Fall Flower Earrings</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn" disabled>Sold out</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2679.jpg?v=1757253782&width=600" alt="Wishes Earrings" loading="lazy"/>
+          <span class="p-badge fall">Fall 2025</span>
+          <div class="sold-overlay"><span class="sold-label">Sold out</span></div>
+        </div>
+        <div class="p-info">
+          <div class="p-name">Wishes Earrings</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn" disabled>Sold out</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2537_bf7fb8ec-3ad0-429e-8b4b-de14afdcb169.jpg?v=1756827452&width=600" alt="Western Dangles" loading="lazy"/>
+          <span class="p-badge new">In stock</span>
+        </div>
+        <div class="p-info">
+          <div class="p-name">Western Dangles</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2535_ac810126-3825-48dd-959b-29ecc60dcd6a.jpg?v=1756827139&width=600" alt="Ornate Earrings" loading="lazy"/>
+          <span class="p-badge new">In stock</span>
+        </div>
+        <div class="p-info">
+          <div class="p-name">Ornate Earrings</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2568.jpg?v=1756908986&width=600" alt="White Mandala Earrings" loading="lazy"/>
+          <span class="p-badge new">In stock</span>
+        </div>
+        <div class="p-info">
+          <div class="p-name">White Mandala Earrings</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2569.jpg?v=1756908986&width=600" alt="White Mandala Earrings 2" loading="lazy"/>
+          <span class="p-badge new">In stock</span>
+        </div>
+        <div class="p-info">
+          <div class="p-name">White Mandala — Style 2</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2536_a08c8649-e5e6-414b-b4be-2d4d7a922e4c.jpg?v=1756827451&width=600" alt="Western Dangles 2" loading="lazy"/>
+          <span class="p-badge new">In stock</span>
+        </div>
+        <div class="p-info">
+          <div class="p-name">Western Dangles — Style 2</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="p-img">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2534_615a208c-d53d-435a-af14-7f562be0ec63.jpg?v=1756827139&width=600" alt="Ornate Earrings 2" loading="lazy"/>
+          <span class="p-badge new">In stock</span>
+        </div>
+        <div class="p-info">
+          <div class="p-name">Ornate Earrings — Style 2</div>
+          <div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story section -->
+  <section class="story-section">
+    <div class="story-img">
+      <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2682.jpg?v=1757253877&width=800" alt="Jersey Street earrings"/>
+    </div>
+    <div class="story-text">
+      <div class="story-eyebrow">The maker</div>
+      <h2 class="story-title">Not mass produced.<br><em>Made with intention.</em></h2>
+      <p class="story-body">Jersey Street is a one-person operation. Every earring you see in this shop was made by hand — no duplicates, no restocks, no production line. When it is gone, it is gone. That is what makes each pair worth having.</p>
+      <p class="story-note">Each listing is a single item. Once it sells, it does not come back. If you see something you love, it is worth grabbing now.</p>
+    </div>
+  </section>
+
+  <!-- Collections -->
+  <section class="section bg-warm">
+    <div class="section-eyebrow">Browse</div>
+    <div class="section-head">
+      <h2 class="section-title">Shop collections</h2>
+      <a class="view-all" href="#">All earrings</a>
+    </div>
+    <div class="collections-grid">
+      <div class="col-card">
+        <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2682.jpg?v=1757253877&width=800" alt="Fall 2025"/>
+        <div class="col-card-overlay"></div>
+        <div class="col-card-body">
+          <div class="col-card-name">Fall 2025</div>
+          <div class="col-card-sub">Seasonal collection &nbsp;·&nbsp; Limited pieces</div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_2537_bf7fb8ec-3ad0-429e-8b4b-de14afdcb169.jpg?v=1756827452&width=800" alt="All Earrings"/>
+        <div class="col-card-overlay"></div>
+        <div class="col-card-body">
+          <div class="col-card-name">All Earrings</div>
+          <div class="col-card-sub">76 pieces available &nbsp;·&nbsp; All $15</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New pieces - lettered products -->
+  <section class="section" id="all">
+    <div class="section-eyebrow">New pieces</div>
+    <div class="section-head">
+      <h2 class="section-title">Latest additions</h2>
+      <a class="view-all" href="#">View all 76</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4176.jpg?v=1766931047&width=600" alt="Earring AI" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AI</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4177.jpg?v=1766931014&width=600" alt="Earring AH" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AH</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4178.jpg?v=1766930978&width=600" alt="Earring AG" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AG</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4175.jpg?v=1766930939&width=600" alt="Earring AF" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AF</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4174.jpg?v=1766930907&width=600" alt="Earring AE" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AE</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4172.jpg?v=1766930873&width=600" alt="Earring AD" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AD</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4171.jpg?v=1766930822&width=600" alt="Earring AC" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AC</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4169.jpg?v=1766930346&width=600" alt="Earring AB" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AB</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4168.jpg?v=1766930317&width=600" alt="Earring AA" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. AA</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4167.jpg?v=1766930280&width=600" alt="Earring Z" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. Z</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4166.jpg?v=1766930249&width=600" alt="Earring Y" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. Y</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+      <div class="product-card">
+        <div class="p-img"><img src="https://unkj09-9g.myshopify.com/cdn/shop/files/IMG_4165.jpg?v=1766930205&width=600" alt="Earring X" loading="lazy"/><span class="p-badge new">In stock</span></div>
+        <div class="p-info"><div class="p-name">Earring No. X</div><div class="p-bottom"><span class="p-price">$15.00</span><button class="add-btn">Add to cart</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Testimonials -->
+  <section class="section bg-warm">
+    <div class="section-eyebrow">What customers say</div>
+    <div class="section-head">
+      <h2 class="section-title">Testimonies</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-body">"Absolutely love my earrings. They are so unique and I always get compliments when I wear them."</p>
+        <div class="testi-name">Verified customer</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-body">"I love knowing that no one else has the same pair as me. That is what makes Jersey Street so special."</p>
+        <div class="testi-name">Verified customer</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-body">"Fast shipping, beautiful quality, and the plastic hook option was so thoughtful. Will be ordering again."</p>
+        <div class="testi-name">Verified customer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email signup -->
+  <section class="email-section">
+    <div class="email-text">
+      <h2>Be first to see new pieces.</h2>
+      <p>New earrings sell fast. Join the list and never miss a drop.</p>
+    </div>
+    <div class="email-form">
+      <input class="email-input" type="email" placeholder="Your email address"/>
+      <button class="email-submit">Subscribe</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="https://unkj09-9g.myshopify.com/cdn/shop/files/Jersey_Street_STicker_Website_3.png?v=1756772619&width=160" alt="Jersey Street"/>
+        </div>
+        <p class="footer-desc">Handmade earrings. One of a kind. Each piece is made by hand and once it sells, it does not come back.</p>
+      </div>
+      <div class="f-col">
+        <div class="f-col-title">Shop</div>
+        <a href="#">All earrings</a>
+        <a href="#">Fall 2025</a>
+        <a href="#">New arrivals</a>
+      </div>
+      <div class="f-col">
+        <div class="f-col-title">Info</div>
+        <a href="#">About me</a>
+        <a href="#">Where to find us</a>
+        <a href="#">Testimonies</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="f-copy">© 2026 Jersey Street. All rights reserved.</div>
+      <span class="f-handmade">Made by hand, with love.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
